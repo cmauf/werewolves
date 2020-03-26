@@ -2,16 +2,14 @@
   <div id="app">
     <h1>Marc's Fabulöse Werwolf-Rollenverteilung</h1>
 	<div class="playerlist">
-		<ListPlayers v-on:new-player="addPlayer"/>
-		
+		<ListPlayers v-bind:players="players" v-on:new-player="addPlayer" v-on:remove-player="removePlayer"/>
 	</div>
-	<button v-on:click="fillRoleQueue">Rollen-Queue füllen</button>
-	<button v-on:click="makeRoles">Rollen verteilen</button>
+	<div class="roleassign">
+		<AssignRoles v-bind:players="players" v-bind:roles="roles" />
+	</div>
 	<div class="rolelist">
-		<ListRoles />
-		<ul>
-			<li v-bind:key="role.qty" v-for="role in roles">{{ role.name }}, Anzahl <span v-on:click="role.qty--">-</span> {{ role.qty  }} <span v-on:click="role.qty++">+</span></li>
-		</ul>
+		<ListRoles v-bind:roles="roles"/>
+
 	</div>
   </div>
 </template>
@@ -19,10 +17,12 @@
 <script>
 import ListPlayers from './components/ListPlayers.vue'
 import ListRoles from './components/ListRoles.vue'
+import AssignRoles from './components/AssignRoles.vue'
 
 export default {
   name: 'App',
   components: {
+	AssignRoles,
 	ListPlayers,
 	ListRoles
   },
@@ -33,10 +33,10 @@ export default {
 			{id: 0, name: 'Test', role: 'Bürger'}
 		],
 		roles: [
+		{name: 'Bürger', qty: 0},
+		{name: 'Werwolf', qty: 0},
 		{name: 'Seherin', qty: 0},
 		{name: 'Hexe', qty: 0},
-		{name: 'Werwolf', qty: 0},
-		{name: 'Bürger', qty: 0},
 		{name: 'Armor', qty: 0}
 		],
 		roleQueue: [
@@ -52,33 +52,12 @@ export default {
 		const updated = +e.innerHTML.getElementById('newqty');
 		this.player.qty = updated;
 	},
-	makeRoles(e) {
-		e.preventDefault();
-		this.fillRoleQueue();
-		var player;
-		for(player in this.players){
-			if (this.roleQueue.length == 0) {
-				alert('Zu wenig Rollen für die Spieler!')
-				break;
-			}
-			player.role = this.roleQueue.splice(Math.floor(Math.random()*this.roleQueue.length), 1);
-		}
-		if (this.roleQueue.length > 0) {
-			alert("Zu viele Rollen für die Spieler*innen");
-		}
-	},
-	fillRoleQueue: function(e) {
-		e.preventDefault();
-		var role;
-		for (role in this.roles) {
-			for (var i = role.qty; i>0; i--) {
-			this.roleQueue.push(role.name);
-			}
-		}
-	},
 	showRole(player) {
 		if (player.role != 'none') return ", " + player.role;
 		else return '';
+	},
+	removePlayer(playerID) {
+		this.players = this.players.filter(player => player.id != playerID);
 	}
   }
 }

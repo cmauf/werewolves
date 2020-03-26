@@ -5,13 +5,14 @@
 			<input type="text" v-model="newplayer"><button type="submit">Hinzufügen</button>
 		</form>
 		<ul>
-			<li v-bind:key="player.id" v-for="player in players">{{ player.name }}<span >{{ showRole(player) }}</span></li>
+			<li v-bind:key="player.id" v-for="player in players">
+				{{ player.name }}{{ showRole(player) }}<button v-on:click="$emit('remove-player', player.id)">Entfernen</button>
+			</li>
 		</ul>
     </div>
 </template>
 
 <script>
-
 
 export default {
 	name: 'ListPlayers',
@@ -36,6 +37,9 @@ export default {
 			this.nextID++;
 			}
 		
+		},
+		removePlayer(playerID) {
+			this.$emit('remove-player', playerID);
 		},
 		showRole(player) {
 		if (player.role != 'none') return ", " + player.role;

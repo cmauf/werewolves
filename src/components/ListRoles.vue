@@ -2,7 +2,7 @@
 	<div class="rolelist">
 		{{ headline }}:
 		<ul>
-			<li v-for="role in rolelist" v-bind:key="role.name"></li>
+			<li v-bind:key="role.name" v-for="role in roles">{{ role.name }}, Anzahl <span v-on:click="role.qty--">-</span> {{ role.qty  }} <span v-on:click="role.qty++">+</span></li>
 		</ul>
 	</div>
 </template>
