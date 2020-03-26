@@ -1,15 +1,18 @@
 <template>
   <div id="app">
     <h1>Marc's Fabulöse Werwolf-Rollenverteilung</h1>
-	<div class="playerlist">
+	<div class="row">
+	<div class="column">
 		<ListPlayers v-bind:players="players" v-on:new-player="addPlayer" v-on:remove-player="removePlayer"/>
 	</div>
-	<div class="roleassign">
+	
+	<div class="column">
+		<ListRoles v-bind:roles="roles"/>
+	</div>
+
+	<div class="column">
 		<AssignRoles v-bind:players="players" v-bind:roles="roles" />
 	</div>
-	<div class="rolelist">
-		<ListRoles v-bind:roles="roles"/>
-
 	</div>
   </div>
 </template>
@@ -30,7 +33,6 @@ export default {
 	return {
 		newplayer: '',
 		players: [
-			{id: 0, name: 'Test', role: 'Bürger'}
 		],
 		roles: [
 		{name: 'Bürger', qty: 0},
@@ -72,10 +74,44 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-.playerlist {
-	float: left;
+
+.row {
+  display: flex;
+  margin: 20px;
+  padding: 10px;
 }
-.rolelist {
-	float: right;
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
+.column {
+  flex: 33%;
+}
+@media screen and (max-width: 800px) {
+  .column {
+    width: 100%;
+  }
+}
+h2 {
+  font: 300 30px/1.5 Helvetica, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin-top: 0;
+  text-align: left;
+}
+ 
+li {
+  font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+  border-bottom: 1px solid #ccc;
+}
+ 
+li:last-child {
+  border: none;
+}
+ 
 </style>
