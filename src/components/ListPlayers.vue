@@ -1,12 +1,12 @@
 <template>
     <div class="playerlist">
-        {{ headline }}:
+        <h2>{{ headline }}</h2>
 		<form @submit="addPlayer">
-			<input type="text" v-model="newplayer"><button type="submit">Hinzufügen</button>
+			<input type="text" v-model="newplayer"><label id="add-btn" v-on:click="addPlayer"><img src="../assets/plus-24px.png" margin-left="20 px" width="16px" heigth="16px" padding="1px"></label>
 		</form>
 		<ul>
 			<li v-bind:key="player.id" v-for="player in players">
-				{{ player.name }}{{ showRole(player) }}<button v-on:click="$emit('remove-player', player.id)">Entfernen</button>
+				<span>{{ player.name }}{{ showRole(player) }}</span><label class="rm-btn" v-on:click="$emit('remove-player', player.id)"><img src="../assets/criss-cross-24px.png" margin-left="20 px" width="16px" heigth="16px" padding="1px"></label>
 			</li>
 		</ul>
     </div>
@@ -53,6 +53,18 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+form {
+	height: 40px;
+	padding: 10px;
+ }
+input{
+	display: inline-block;
+	width: 85%;
+	margin-right: 5px;
+}
+span{
+	display: inline-block;
+	width: 90%;
+}
 </style>
