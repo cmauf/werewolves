@@ -1,8 +1,8 @@
 <template>
 	<div class="rolelist">
-		{{ headline }}:
+		<h2>{{ headline }}</h2>
 		<ul>
-			<li v-bind:key="role.name" v-for="role in roles">{{ role.name }}, Anzahl <span v-on:click="role.qty--">-</span> {{ role.qty  }} <span v-on:click="role.qty++">+</span></li>
+			<li v-bind:key="role.name" v-for="role in roles"><span class="rolename">{{ role.name }}</span><label v-on:click="role.qty--"><img src="../assets/minus-24px.png" margin-left="20 px" width="16px" heigth="16px" padding="1px"></label> {{ role.qty  }} <label v-on:click="role.qty++"><img src="../assets/plus-24px.png" margin-left="20 px" width="16px" heigth="16px" padding="1px"></label></li>
 		</ul>
 	</div>
 </template>
@@ -22,6 +22,13 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+	span {
+		display: inline-block;
+		margin-right: 10px;
+		width: 65%;
+	}
+	ul{
+		margin-top: 60px;
+	}
 </style>
