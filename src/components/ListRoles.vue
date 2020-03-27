@@ -28,7 +28,10 @@ export default {
 		margin-right: 10px;
 		width: 65%;
 	}
-	ul{
-		margin-top: 60px;
-	}
+	
+	@media only screen and (min-width: 800px) {
+		ul{
+			margin-top: 60px;
+		}
+}
 </style>

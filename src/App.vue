@@ -49,11 +49,6 @@ export default {
 	addPlayer(newPlayer) {
 		this.players = [...this.players, newPlayer];
 	},
-	updateQty(e) {
-		e.preventDefault();
-		const updated = +e.innerHTML.getElementById('newqty');
-		this.player.qty = updated;
-	},
 	showRole(player) {
 		if (player.role != 'none') return ", " + player.role;
 		else return '';
@@ -85,14 +80,15 @@ export default {
   display: table;
   clear: both;
 }
-.column {
-  flex: 33%;
-}
-@media screen and (max-width: 800px) {
+@media only screen and (min-width: 800px) {
   .column {
-    width: 100%;
+    flex: 33%;
   }
 }
+.column {
+  width: 100%;
+}
+
 h2 {
   font: 300 30px/1.5 Helvetica, Verdana, sans-serif;
   margin: 0;
