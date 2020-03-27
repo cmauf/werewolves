@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Marc's Fabulöse Werwolf-Rollenverteilung</h1>
+    <h1>Marcs Fabulöse Werwolf-Rollenverteilung</h1>
 	<div class="row">
 	<div class="column">
 		<ListPlayers v-bind:players="players" v-on:new-player="addPlayer" v-on:remove-player="removePlayer"/>
@@ -80,14 +80,15 @@ export default {
   display: table;
   clear: both;
 }
+.column {
+  flex: 100%;
+}
 @media only screen and (min-width: 800px) {
   .column {
     flex: 33%;
   }
 }
-.column {
-  width: 100%;
-}
+
 
 h2 {
   font: 300 30px/1.5 Helvetica, Verdana, sans-serif;
