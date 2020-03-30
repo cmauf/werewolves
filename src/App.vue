@@ -7,11 +7,11 @@
 	</div>
 	
 	<div class="column">
-		<ListRoles v-bind:roles="roles"/>
+		<ListRoles v-bind:roles="roles" v-on:addRole="updateRoles"/>
 	</div>
 
 	<div class="column">
-		<AssignRoles v-bind:players="players" v-bind:roles="roles" />
+		<Functions v-bind:players="players" v-bind:roles="roles" />
 	</div>
 	</div>
   </div>
@@ -20,12 +20,12 @@
 <script>
 import ListPlayers from './components/ListPlayers.vue'
 import ListRoles from './components/ListRoles.vue'
-import AssignRoles from './components/AssignRoles.vue'
+import Functions from './components/Functions.vue'
 
 export default {
   name: 'App',
   components: {
-	AssignRoles,
+	Functions,
 	ListPlayers,
 	ListRoles
   },
@@ -38,10 +38,7 @@ export default {
 		{name: 'Bürger', qty: 0},
 		{name: 'Werwolf', qty: 0},
 		{name: 'Seherin', qty: 0},
-		{name: 'Hexe', qty: 0},
-		{name: 'Dorfnutte', qty: 0},
-		{name: 'Armor', qty: 0},
-		{name: 'Lycantroph', qty: 0}
+		{name: 'Hexe', qty: 0}
 		],
 		roleQueue: [
 		]
@@ -57,6 +54,9 @@ export default {
 	},
 	removePlayer(playerID) {
 		this.players = this.players.filter(player => player.id != playerID);
+	},
+	updateRoles(newRole){
+		this.roles = [...this.roles, newRole];
 	}
   }
 }

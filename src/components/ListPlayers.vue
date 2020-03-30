@@ -1,9 +1,7 @@
 <template>
     <div class="playerlist">
         <h2>{{ headline }}</h2>
-		<form @submit="addPlayer">
-			<input type="text" v-model="newplayer"><label id="add-btn" v-on:click="addPlayer"><img src="../assets/plus-24px.png" margin-left="20 px" width="16px" heigth="16px" padding="1px"></label>
-		</form>
+		<AddData v-on:dataToAdd="addPlayer" />
 		<ul>
 			<li v-bind:key="player.id" v-for="player in players">
 				<span>{{ player.name }}{{ showRole(player) }}</span><label class="rm-btn" v-on:click="$emit('remove-player', player.id)"><img src="../assets/criss-cross-24px.png" margin-left="20 px" width="16px" heigth="16px" padding="1px"></label>
@@ -13,9 +11,13 @@
 </template>
 
 <script>
+import AddData from './AddData.vue'
 
 export default {
 	name: 'ListPlayers',
+	components: {
+		AddData
+	},
     data() {
 		return {
 			newplayer: '',
@@ -24,12 +26,11 @@ export default {
 		}
 	},
 	methods: {
-		addPlayer(e) {
-		e.preventDefault();
-		if (this.newplayer > '') {
+		addPlayer(NewPlayer) {
+		if (NewPlayer > '') {
 			const playerToAdd = {
 				id: this.nextID,
-				name: this.newplayer,
+				name: NewPlayer,
 				role: 'none'
 			}
 			this.$emit('new-player', playerToAdd);
