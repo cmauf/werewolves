@@ -2,12 +2,14 @@
     <div>
         <h2>Funktionen</h2>
         <button v-on:click="makeRoles">Rollen verteilen</button>
+        <button @click="sortPlayersByName">Spieler*innenliste alphabetisch nach Namen sortieren</button>
+        <button @click="sortPlayersByRole">Spieler*innenliste alphabetisch nach Rollen sortieren</button>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'AssignRoles',
+    name: 'Functions',
     data() {
         return {
                 rolesQueue: []
@@ -48,6 +50,12 @@ export default {
             [a[i], a[j]] = [a[j], a[i]];
             }
             return a;
+        },
+        sortPlayersByName() {
+            this.players.sort((a,b) => a.name.toUpperCase() > b.name.toUpperCase())
+        },
+        sortPlayersByRole () {
+
         }
             
         },

@@ -39,7 +39,9 @@ export default {
 		{name: 'Werwolf', qty: 0},
 		{name: 'Seherin', qty: 0},
 		{name: 'Hexe', qty: 0},
-		{name: 'Armor', qty: 0}
+		{name: 'Dorfnutte', qty: 0},
+		{name: 'Armor', qty: 0},
+		{name: 'Lycantroph', qty: 0}
 		],
 		roleQueue: [
 		]
