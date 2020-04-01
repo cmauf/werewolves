@@ -2,8 +2,11 @@
     <div>
         <h2>Funktionen</h2>
         <button v-on:click="makeRoles">Rollen verteilen</button>
-        <button @click="sortPlayersByName">Spieler*innenliste alphabetisch nach Namen sortieren</button>
-        <button @click="sortPlayersByRole">Spieler*innenliste alphabetisch nach Rollen sortieren</button>
+        <button @click="sortPlayersByNameAZ">Spieler*innenliste alphabetisch nach Namen sortieren</button>
+        <button @click="sortPlayersByNameZA">Spieler*innenliste alphabetisch nach Namen sortieren</button>
+        <button @click="sortPlayersByRoleAZ">Spieler*innenliste alphabetisch nach Rollen sortieren</button>
+        <button @click="sortPlayersByRoleZA">Spieler*innenliste alphabetisch nach Rollen sortieren</button>
+        <button @click="makeGameScreen">Spielleiter*innenansicht</button>
     </div>
 </template>
 
@@ -44,6 +47,9 @@ export default {
             this.rolesQueue = roleQueue;
             return roleQueue;
             },
+        makeGameScreen() {
+            this.$emit('makeScreen');
+        },
         shuffle(a) {
             for (let i = a.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -51,14 +57,20 @@ export default {
             }
             return a;
         },
-        sortPlayersByName() {
-            this.players.sort((a,b) => a.name.toUpperCase() > b.name.toUpperCase())
-        },
-        sortPlayersByRole () {
-
+        sortPlayersByNameAZ() {
+            this.players.sort((a,b) => a.name.toUpperCase() > b.name.toUpperCase());
+            },
+        sortPlayersByNameZA() {
+             this.players.sort((a,b) => a.name.toUpperCase() < b.name.toUpperCase());
+            },
+        sortPlayersByRoleAZ () {
+            this.roles.sort((a,b) => a.name.toUpperCase() > b.name.toUpperCase());
+            },
+        sortPlayersByRoleZA () {
+            this.roles.sort((a,b) => a.name.toUpperCase() < b.name.toUpperCase());
         }
             
-        },
+    },
     props: [
         'players',
         'roles'
