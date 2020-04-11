@@ -1,9 +1,10 @@
 <template>
     <div>
         <h1>Spielleiter*innensicht</h1>
-        <div v-bind:key="player.id" v-for="player in players" >
+        <div v-bind:key="player.id" v-for="player in this.players" @click="player.dead = true">
                 {{ player.name }}
                 {{ player.role }}
+                <span v-if="player.dead"> TOT</span>
                 
         </div>
         <button @click="makeRoles">Rollen verteilen</button><button @click="endGame">Spiel beenden</button><button @click="initiate">LOS</button>
@@ -15,6 +16,7 @@ export default {
     name: 'GameLoop',
     data() {
         return {
+            playerInstance: [],
             recommendedRoles: [
                 'Bewohner', 'Bewohner', 'Bewohner', 'Bewohner', 'Bewohner',
                 'Seher', 'Werwolf1', 'Werwolf2', 'Medium', 'Besessener',
@@ -51,10 +53,10 @@ export default {
             var instance = [];
             var player;
             for (player in this.players) {
-                let newName = player.name;
-                let newID = player.id;
-                let newRole = player.role;
-                let newImgURL = this.getImgURL(newName);
+                var newName = player.name;
+                var newID = player.id;
+                var newRole = player.role;
+                var newImgURL = this.getImgURL(newName);
                 const newPlayer = {
                     name: newName,
                     id: newID,
@@ -108,6 +110,10 @@ export default {
             }
             return '../assets/nar.png';
         },
+        initiate: function() {
+            this.playerInstance = this.buildInstance();
+
+        },
         makeGameCard: function(player) {
             var newPlayer = this.addPlayer(player)
             this.gameInstance = [...this.gameInstance, newPlayer]
@@ -125,8 +131,17 @@ export default {
                 i++;
             }
         },
+        buildInstance: function() {
+            var instance = [];
+            var player;
+            for (player in this.players) {
+                var newPlayer = this.addPlayer(player);
+                instance = [...instance, newPlayer]
+            }
+            return instance;
+        },
         shuffle: function(a) {
-            for (let i = a.length - 1; i > 0; i--) {
+            for (var i = a.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [a[i], a[j]] = [a[j], a[i]];
             }

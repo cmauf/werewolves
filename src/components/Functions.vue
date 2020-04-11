@@ -64,10 +64,10 @@ export default {
              this.players.sort((a,b) => a.name.toUpperCase() < b.name.toUpperCase());
             },
         sortPlayersByRoleAZ () {
-            this.roles.sort((a,b) => a.name.toUpperCase() > b.name.toUpperCase());
+            this.players.sort((a,b) => a.role.toUpperCase() > b.role.toUpperCase());
             },
         sortPlayersByRoleZA () {
-            this.roles.sort((a,b) => a.name.toUpperCase() < b.name.toUpperCase());
+            this.players.sort((a,b) => a.role.toUpperCase() < b.role.toUpperCase());
         }
             
     },
