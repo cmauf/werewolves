@@ -49,11 +49,11 @@ export default {
 			{name: 'h', role: 'none', id: 8},
 		],
 		roles: [
-		{name: 'Bewohner', qty: 0},
-		{name: 'Werwolf', qty: 0},
-		{name: 'Seherin', qty: 0},
-		{name: 'Hexe', qty: 0},
-		{name: 'Armor', qty: 0}
+		{name: 'Bewohner', qty: 4},
+		{name: 'Werwolf', qty: 1},
+		{name: 'Seherin', qty: 1},
+		{name: 'Hexe', qty: 1},
+		{name: 'Armor', qty: 1}
 		],
 		screenOn: false
 	}
