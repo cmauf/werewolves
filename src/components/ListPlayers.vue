@@ -45,24 +45,6 @@ export default {
 		showRole(player) {
 		if (player.role != 'none') return ", " + player.role;
 		else return '';
-		},
-		sortNames(e) { //not working as intended yet
-			e.preventDefault();
-			var newplayers = this.players;
-			for (let i = newplayers.length; i> 0; i--) {
-				for (let j = 0; j < newplayers.length-2; j++) {
-					var a = newplayers[j];
-					var b = newplayers[j+1];
-					if (this.ascending(a.name, b.name) == 1) {
-						newplayers.$set(j, b);
-						newplayers.$set(j+1, a);
-					}
-				}
-			}
-			this.players = newplayers;
-		},
-		ascending: function(a, b) { //courtesy of d3.array
-			return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
 		}
 	},
 	props: [

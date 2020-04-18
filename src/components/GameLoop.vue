@@ -1,22 +1,20 @@
 <template>
     <div>
         <h1>Spielleiter*innensicht</h1>
-        <div v-bind:key="player.id" v-for="player in this.players" @click="player.dead = true">
+        <div v-bind:key="player.id" v-for="player in this.players">
                 {{ player.name }}
-                {{ player.role }}
-                <span v-if="player.dead"> TOT</span>
-                
+                {{ player.role }}  
         </div>
-        <button @click="makeRoles">Rollen verteilen</button><button @click="endGame">Spiel beenden</button><button @click="initiate">LOS</button>
+        <button @click="endGame">Spiel beenden</button><button @click="initiate">LOS</button>
     </div>
 </template>
 
 <script>
 export default {
     name: 'GameLoop',
-    data() {
+    data: function() {
         return {
-            playerInstance: [],
+           gameInstance: [],
             recommendedRoles: [
                 'Bewohner', 'Bewohner', 'Bewohner', 'Bewohner', 'Bewohner',
                 'Seher', 'Werwolf1', 'Werwolf2', 'Medium', 'Besessener',
@@ -48,39 +46,7 @@ export default {
             ]
         }
     },
-    computed: {
-        gameInstance: function() {
-            var instance = [];
-            var player;
-            for (player in this.players) {
-                var newName = player.name;
-                var newID = player.id;
-                var newRole = player.role;
-                var newImgURL = this.getImgURL(newName);
-                const newPlayer = {
-                    name: newName,
-                    id: newID,
-                    role: newRole,
-                    roleIMG: newImgURL,
-                    dead: false
-                }
-            instance = [...instance, newPlayer]
-            }
-            return instance;
-        }
-    },
     methods: {
-        addPlayer: function(player) {
-            const newPlayer = {
-                name: player.name,
-                id: player.id,
-                role: player.role,
-                roleIMG: this.getURLforInstance(player.role),
-                dead: false
-            }
-            console.log('name: ' + newPlayer.name + ', id: ' + newPlayer.id + ' rolle: ' + newPlayer.role + ' bild: ' + newPlayer.roleIMG);
-            return newPlayer
-        },
         endGame() {
             this.$emit('endGame');
         },
@@ -97,55 +63,20 @@ export default {
             }
             return '../assets/nar.png';
         },
-        getURLforInstance: function(str) {
-            if (str == 'Bewohner') {
-                const i = Math.floor(Math.random() * (4));
-                return this.villagers[i];
-            }
-            var instance;
-            for (instance in this.roleURLs) {
-                if (instance.name == str){
-                    return instance.url;
-                }
-            }
-            return '../assets/nar.png';
-        },
         initiate: function() {
-            this.playerInstance = this.buildInstance();
-
-        },
-        makeGameCard: function(player) {
-            var newPlayer = this.addPlayer(player)
-            this.gameInstance = [...this.gameInstance, newPlayer]
-        },
-        makeRoles: function(e) {
-            e.preventDefault();
-            this.players = this.shuffle(this.players);
-            var player;
-            var i = 0;
+            let player;
             for (player in this.players) {
-                console.log('evaluating' + player.id);
-                player.role = this.recommendedRoles[i];
-                console.log('Assigned '+ player.role);
-                this.makeGameCard(player);
-                i++;
+                console.log('Evaluating ' + player);
+                const newPlayer = {
+                id: player[0],
+                name: player[1],
+                role: player[2],
+                roleIMG: this.getImgURL(player[2]),
+                dead: false
+                }
+                console.log('name: ' + newPlayer.name + ', id: ' + newPlayer.id + ' rolle: ' + newPlayer.role + ' bild: ' + newPlayer.roleIMG);
+                this.gameInstance = [...this.gameInstance, newPlayer];
             }
-        },
-        buildInstance: function() {
-            var instance = [];
-            var player;
-            for (player in this.players) {
-                var newPlayer = this.addPlayer(player);
-                instance = [...instance, newPlayer]
-            }
-            return instance;
-        },
-        shuffle: function(a) {
-            for (var i = a.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [a[i], a[j]] = [a[j], a[i]];
-            }
-            return a;
         },
         toggleDead: function(player) {
             player.dead=!player.dead
