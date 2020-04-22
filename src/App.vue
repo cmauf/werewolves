@@ -39,14 +39,14 @@ export default {
   data() {
 	return {
 		players: [
-			{name: 'a', role: 'none', id: 1},
-			{name: 'b', role: 'none', id: 2},
-			{name: 'c', role: 'none', id: 3},
-			{name: 'd', role: 'none', id: 4},
-			{name: 'e', role: 'none', id: 5},
-			{name: 'f', role: 'none', id: 6},
-			{name: 'g', role: 'none', id: 7},
-			{name: 'h', role: 'none', id: 8},
+			{name: 'Anna', role: 'none', id: 1},
+			{name: 'Berta', role: 'none', id: 2},
+			{name: 'Caro', role: 'none', id: 3},
+			{name: 'Daniel', role: 'none', id: 4},
+			{name: 'Erich', role: 'none', id: 5},
+			{name: 'Frieder', role: 'none', id: 6},
+			{name: 'Getrude', role: 'none', id: 7},
+			{name: 'Hellmuth', role: 'none', id: 8},
 		],
 		roles: [
 		{name: 'Bewohner', qty: 4},
@@ -100,11 +100,15 @@ export default {
   clear: both;
 }
 .column {
-  width: 100%;
+  width: 33%;
+  padding: 10px;
 }
-@media only screen and (min-width: 800px) {
+@media screen and (max-width: 800px) {
+  .row{
+	display: block;
+  }
   .column {
-    flex: 33%;
+    width: 100%;
   }
 }
 
