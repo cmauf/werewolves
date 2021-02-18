@@ -4,7 +4,10 @@
 		<AddData v-on:dataToAdd="addPlayer" />
 		<ul>
 			<li v-bind:key="player.id" v-for="player in players">
-				<span>{{ player.name }}{{ showRole(player) }}</span><label class="rm-btn" v-on:click="$emit('remove-player', player.id)"><img src="../assets/criss-cross-24px.png" margin-left="20 px" width="16px" heigth="16px" padding="1px"></label>
+				<span>{{ player.name }}{{ showRole(player) }}</span>
+				<label class="rm-btn" @click="removePlayer(player.id)">
+					<img src="../assets/criss-cross-24px.png" class="deletePlayer">
+				</label>
 			</li>
 		</ul>
     </div>
@@ -18,38 +21,45 @@ export default {
 	components: {
 		AddData
 	},
-    data() {
+  data() {
 		return {
 			newplayer: '',
 			headline: 'Mitspieler*innen',
-			nextID: 1
+      nextID: 9,
+      players: [
+        {name: 'Anna', role: 'none', id: 1},
+        {name: 'Buraq', role: 'none', id: 2},
+        {name: 'Caro', role: 'none', id: 3},
+        {name: 'Daniel', role: 'none', id: 4},
+        {name: 'Erich', role: 'none', id: 5},
+        {name: 'Florence', role: 'none', id: 6},
+        {name: 'Getrude', role: 'none', id: 7},
+        {name: 'Hakan', role: 'none', id: 8},
+      ],
 		}
-	},
+  },
 	methods: {
-		addPlayer(NewPlayer) {
-		if (NewPlayer > '') {
+		addPlayer(newPlayer) {
+		if (newPlayer > '') {
 			const playerToAdd = {
 				id: this.nextID,
-				name: NewPlayer,
+				name: newPlayer,
 				role: 'none'
 			}
-			this.$emit('new-player', playerToAdd);
+			this.players = [...this.players, playerToAdd]
 			this.newplayer = '';
 			this.nextID++;
 			}
 		
 		},
 		removePlayer(playerID) {
-			this.$emit('remove-player', playerID);
+			this.players = this.players.filter(player => player.id != playerID)
 		},
 		showRole(player) {
-		if (player.role != 'none') return ", " + player.role;
-		else return '';
+      if (player.role != 'none') return ", " + player.role;
+      else return ''
 		}
-	},
-	props: [
-		'players',
-		]
+	}
 		
 }
 </script>
@@ -67,5 +77,11 @@ input{
 span{
 	display: inline-block;
 	width: 90%;
+}
+.deletePlayer {
+  margin-left: 20px;
+  width: 16px; 
+  height: 16px; 
+  padding: 1px;
 }
 </style>

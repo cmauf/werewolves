@@ -1,23 +1,23 @@
 <template>
   <div id="app">
 		<div v-if="!screenOn">
-			<h1>Marcs Fabulöse Werwolf-Rollenverteilung</h1>
+			<h1>Fabulöse Werwolf-Rollenverteilung</h1>
 			<div class="row">
 				<div class="column">
-					<ListPlayers v-bind:players="players" v-on:new-player="addPlayer" v-on:remove-player="removePlayer"/>
+					<ListPlayers />
 				</div>
 				
 				<div class="column">
-					<ListRoles v-bind:roles="roles" v-on:addRole="updateRoles"/>
+					<ListRoles />
 				</div>
 
 				<div class="column">
-					<Functions v-bind:players="players" v-bind:roles="roles" v-on:makeScreen="toggleGame"/>
+					<Functions v-on:makeScreen="toggleGame"/>
 				</div>
 			</div>
 		</div>
 		<div v-else>
-			<GameLoop v-bind:players="players" v-on:endGame="toggleGame" />
+			<GameLoop v-on:endGame="toggleGame" />
 		</div>
   </div>
 </template>
@@ -38,43 +38,16 @@ export default {
   },
   data() {
 	return {
-		players: [
-			{name: 'Anna', role: 'none', id: 1},
-			{name: 'Berta', role: 'none', id: 2},
-			{name: 'Caro', role: 'none', id: 3},
-			{name: 'Daniel', role: 'none', id: 4},
-			{name: 'Erich', role: 'none', id: 5},
-			{name: 'Frieder', role: 'none', id: 6},
-			{name: 'Getrude', role: 'none', id: 7},
-			{name: 'Hellmuth', role: 'none', id: 8},
-		],
-		roles: [
-		{name: 'Bewohner', qty: 4},
-		{name: 'Werwolf', qty: 1},
-		{name: 'Seherin', qty: 1},
-		{name: 'Hexe', qty: 1},
-		{name: 'Armor', qty: 1}
-		],
 		screenOn: false
 	}
   },
   methods: {
-	addPlayer(newPlayer) {
-		this.players = [...this.players, newPlayer];
-	},
 	toggleGame() {
 		this.screenOn = !this.screenOn;
-	},
-	showRole(player) {
-		if (player.role != 'none') return ", " + player.role;
-		else return '';
-	},
-	removePlayer(playerID) {
-		this.players = this.players.filter(player => player.id != playerID);
-	},
-	updateRoles(newRole){
-		this.roles = [...this.roles, newRole];
 	}
+  },
+  beforeDestroy() {
+	this.$emit(this.players)
   }
 }
 </script>

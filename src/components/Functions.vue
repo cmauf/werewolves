@@ -15,8 +15,12 @@ export default {
     name: 'Functions',
     data() {
         return {
-                rolesQueue: []
+                rolesQueue: [],
+                playersLocal: []
             }
+    },
+    created() {
+       
     },
     methods: {
         makeRoles(e) {
@@ -26,10 +30,10 @@ export default {
                     alert('Rollen und Spieler sind nicht identisch')
                     return 0;
                 }
-            var player;
-            var i = this.players.length-1;
-            for(player in this.players){
-                    this.players[player].role = roleQueue[i];
+            
+            var i = this.players.length-1
+            for(let player in this.players){
+                    this.playersLocal[player].role = roleQueue[i];
                     i--;
                 }
             },
@@ -58,16 +62,16 @@ export default {
             return a;
         },
         sortPlayersByNameAZ() {
-            this.players.sort((a,b) => a.name.toUpperCase() > b.name.toUpperCase());
+            this.playersLocal.sort((a,b) => a.name.toUpperCase() > b.name.toUpperCase());
             },
         sortPlayersByNameZA() {
-             this.players.sort((a,b) => a.name.toUpperCase() < b.name.toUpperCase());
+             this.playersLocal.sort((a,b) => a.name.toUpperCase() < b.name.toUpperCase());
             },
         sortPlayersByRoleAZ () {
-            this.players.sort((a,b) => a.role.toUpperCase() > b.role.toUpperCase());
+            this.playersLocal.sort((a,b) => a.role.toUpperCase() > b.role.toUpperCase());
             },
         sortPlayersByRoleZA () {
-            this.players.sort((a,b) => a.role.toUpperCase() < b.role.toUpperCase());
+            this.playersLocal.sort((a,b) => a.role.toUpperCase() < b.role.toUpperCase());
         }
             
     },
