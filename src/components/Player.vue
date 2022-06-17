@@ -1,5 +1,5 @@
 <template>
-    <p>{{ player.name }}, <span>{{ showRole() }}</span><button v-on:click="$emit('remove-player', player.id)">Entfernen</button></p>
+    <p>{{ player.name }}, <span>{{ showRole(player) }}</span><button v-on:click="$emit('remove-player', player.id)">Entfernen</button></p>
 </template>
 <script>
 export default {
