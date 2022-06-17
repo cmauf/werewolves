@@ -1,4 +1,5 @@
 # werewolves
+[![DeepScan grade](https://deepscan.io/api/teams/12791/projects/15831/branches/323429/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=12791&pid=15831&bid=323429)
 
 ## Project setup
 ```
